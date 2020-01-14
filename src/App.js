@@ -7,11 +7,21 @@ import SynthWave from './components/visualizer/SynthWave';
 
 const waveform = new Tone.Waveform();
 var phaser = new Tone.Phaser({
-	"frequency" : 5,
-	"octaves" : 5,
+	"frequency" : 15,
+	"octaves" : 2,
 	"baseFrequency" : 1000
 }).chain(waveform, Tone.Master);
-const synth = new Tone.FMSynth().connect(waveform, phaser);
+const synth = new Tone.Synth({
+  oscillator: {
+    type: 'sawtooth'
+  },
+  // envelope: {
+  //   attack: 1,
+  //   decay: 2,
+  //   sustain: 0.4,
+  //   release: 3
+  // }
+}).connect(waveform);
 
 function App() {
   return (

@@ -6,6 +6,7 @@ import { KeyboardWrapper } from "./Styles";
 
 const SynthKeyboard = ({ synth }) => {
   const [activeNote, setActiveNote] = React.useState(null);
+  const [mouseDown, setMouseDown] = React.useState(false);
 
   const onAttack = note => {
     setActiveNote(note);
@@ -15,13 +16,23 @@ const SynthKeyboard = ({ synth }) => {
   const onRelease = () => {
     synth.triggerRelease();
     setActiveNote(null);
+    setMouseDown(false);
   };
 
   return (
-    <SynthContext.Provider value={{ activeNote, onAttack, onRelease, synth }}>
+    <SynthContext.Provider
+      value={{
+        setMouseDown,
+        mouseDown,
+        activeNote,
+        onAttack,
+        onRelease,
+        synth
+      }}
+    >
       <KeyboardWrapper>
-        <OctaveKeys octave={4} keyboardShortcuts/>
-        <OctaveKeys octave={5}/>
+        <OctaveKeys octave={3} keyboardShortcuts />
+        <OctaveKeys octave={4} />
       </KeyboardWrapper>
     </SynthContext.Provider>
   );

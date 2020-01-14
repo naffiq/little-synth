@@ -37,9 +37,10 @@ export const KeyButton = styled.div`
   background-color: #000;
   color: #000;
   margin: 1px;
-  transition: background-color .2s;
+  transition: background-color .2s, border-color .2s;
 
 &.active {
   background-color: ${({black}) => black ? "#B83373" : "#A46912"};
+  border-color: #FFF;
 }
 `;

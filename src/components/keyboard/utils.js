@@ -3,7 +3,7 @@ export const whiteNotes = ["C", "D", "E", "F", "G", "A", "B"];
 export const whiteNoteKeys = ["a", "s", "d", "f", "g", "h", "j"];
 export const blackNotes = [null, "C#", "D#", null, "F#", "G#", "A#"];
 
-export const SynthContext = createContext(null);
+export const SynthContext = createContext({});
 
 export const getNoteByKey = (key, octave = 4) => {
   const getNote = () => {
@@ -43,16 +43,21 @@ export const getNoteByKey = (key, octave = 4) => {
 };
 
 export const useKeyboardShortcuts = (octave, isActive) => {
-  const { onAttack, onRelease, activeNote } = useContext(SynthContext);
+  const { onAttack, onRelease, activeNote, mouseDown } = useContext(SynthContext);
 
   useEffect(() => {
     const handleKeyDown = ({ key }) => {
       const note = getNoteByKey(key, octave);
-      if (note && note !== activeNote) {
+      if (note && note !== activeNote && !mouseDown) {
         onAttack(note);
       }
     };
-    const handleKeyUp = () => onRelease();
+    const handleKeyUp = ({ key }) => {
+      const note = getNoteByKey(key, octave);
+      if (activeNote === note) {
+        onRelease()
+      }
+    };
 
     if (isActive) {
       document.addEventListener("keydown", handleKeyDown);
