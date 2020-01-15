@@ -10,10 +10,8 @@ const NoteKey = ({ note, black = false }) => {
     mouseDown,
     setMouseDown
   } = useContext(SynthContext);
-  console.log(setMouseDown);
 
   const handleMouseEnter = () => {
-    console.log('enter')
     if (activeNote !== null && mouseDown) {
       onAttack(note);
     }
