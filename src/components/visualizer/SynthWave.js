@@ -1,5 +1,6 @@
 import React from "react";
 import P5Wrapper from "react-p5-wrapper";
+import { useWindowSize } from "./utils";
 
 const HEIGHT = 400;
 const sketch = (toneWaveform, width) => {
@@ -29,9 +30,9 @@ const sketch = (toneWaveform, width) => {
 };
 
 const SynthWave = ({ waveform }) => {
-  const width = window.innerWidth;
+  const { width } = useWindowSize();
   return (
-    <div style={{marginBottom: -HEIGHT / 2.1, marginTop: -HEIGHT / 1.8}}>
+    <div style={{ marginBottom: -HEIGHT / 2.1, marginTop: -HEIGHT / 1.8 }}>
       <P5Wrapper sketch={sketch(waveform, width)} />
     </div>
   );
